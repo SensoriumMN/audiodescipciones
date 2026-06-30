@@ -28,15 +28,18 @@
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      border: 2px solid #555;
+      border: 2px solid #e0e0e0;
       background: transparent;
-      color: #555;
+      color: #e0e0e0;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: background 0.2s, color 0.2s;
       margin-bottom: 1.5rem;
-      cursor: not-allowed;
     }
+    #btn-play:focus { outline: 3px solid #fff; outline-offset: 4px; }
+    #btn-play:hover { background: #e0e0e0; color: #0a0a0a; }
     #btn-play svg { width: 44px; height: 44px; }
     #estado {
       color: #888;
@@ -49,11 +52,47 @@
 </head>
 <body>
   <p class="titulo">Informativo — Carnovsky</p>
-  <button id="btn-play" aria-label="Audio próximamente disponible" aria-disabled="true" disabled>
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M8 5v14l11-7z"/>
+  <button id="btn-play" aria-label="Reproducir audioguía de Informativo — Carnovsky">
+    <svg id="icono" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path id="icon-path" d="M8 5v14l11-7z"/>
     </svg>
   </button>
-  <p id="estado">Audio próximamente disponible</p>
+  <p id="estado" aria-live="polite">Presioná para escuchar</p>
+  <audio id="player" src="informativo%20carnovsky.mp3" preload="auto"></audio>
+  <script>
+    const audio = document.getElementById('player');
+    const btn = document.getElementById('btn-play');
+    const estado = document.getElementById('estado');
+    const iconPath = document.getElementById('icon-path');
+    const PLAY = 'M8 5v14l11-7z';
+    const PAUSE = 'M6 19h4V5H6v14zm8-14v14h4V5h-4z';
+
+    audio.addEventListener('error', function(e) {
+      estado.textContent = 'Error al cargar el audio';
+    });
+
+    btn.addEventListener('click', function() {
+      if (audio.paused) {
+        audio.play().then(function() {
+          btn.setAttribute('aria-label', 'Pausar audioguía de Informativo — Carnovsky');
+          iconPath.setAttribute('d', PAUSE);
+          estado.textContent = 'Reproduciendo…';
+        }).catch(function(err) {
+          estado.textContent = 'No se pudo reproducir: ' + err.message;
+        });
+      } else {
+        audio.pause();
+        btn.setAttribute('aria-label', 'Reproducir audioguía de Informativo — Carnovsky');
+        iconPath.setAttribute('d', PLAY);
+        estado.textContent = 'Pausado';
+      }
+    });
+
+    audio.addEventListener('ended', function() {
+      btn.setAttribute('aria-label', 'Reproducir audioguía de Informativo — Carnovsky');
+      iconPath.setAttribute('d', PLAY);
+      estado.textContent = 'Fin del audio';
+    });
+  </script>
 </body>
 </html>
