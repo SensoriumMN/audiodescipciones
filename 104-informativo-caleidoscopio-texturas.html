@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informativo — Caleidoscopio Texturas — Audioguía</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0a;
+      font-family: Georgia, serif;
+      padding: 2rem;
+    }
+    .titulo {
+      color: #e0e0e0;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+    #btn-play {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 2px solid #555;
+      background: transparent;
+      color: #555;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      cursor: not-allowed;
+    }
+    #btn-play svg { width: 44px; height: 44px; }
+    #estado {
+      color: #888;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-align: center;
+      min-height: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <p class="titulo">Informativo — Caleidoscopio Texturas</p>
+  <button id="btn-play" aria-label="Audio próximamente disponible" aria-disabled="true" disabled>
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M8 5v14l11-7z"/>
+    </svg>
+  </button>
+  <p id="estado">Audio próximamente disponible</p>
+</body>
+</html>
